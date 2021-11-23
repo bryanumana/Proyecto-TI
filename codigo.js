@@ -53,23 +53,22 @@ const alfabeto256 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
                      "Ń", "ń", "Ņ", "ņ", "Ň", "ň"];
                     
 window.addEventListener('load', () => {
-    var selector = document.querySelector("#selector");
+    var selector = document.querySelector("#selectorTexto1");
     var selector2 = document.querySelector("#selectorTexto2");
     var btnCalcula = document.querySelector("#hazlo");
     var btnReCalcula = document.querySelector("#hazlo2");
     var inputPalabra = document.querySelector("#listap");
+    var outputPalabra = document.querySelector("#txtDecodificado");
     var baseAlfabeto = 32;
     var baseAlfabeto2 = 32;
+    var resultadoLista = [];
     let listaSimbolos2 = [];
  
     
     selector.addEventListener('change', function () {
-        baseAlfabeto = parseInt(document.querySelector("#selector").value);
+        baseAlfabeto = parseInt(document.querySelector("#selectorTexto1").value);
     });
 
-    selector2.addEventListener('change', function () {
-        baseAlfabeto2 = parseInt(document.querySelector("#selector").value);
-    });
 
     function seleccionarAlfabeto() {
         switch (baseAlfabeto) {
@@ -125,7 +124,7 @@ window.addEventListener('load', () => {
         
         let palabraEntrada = inputPalabra.value;
         let listaSimbolos = [];
-        var resultadoLista = [];
+        
         let resultado = [];
 
         if (listaSimbolos2.length == 0) {
@@ -152,6 +151,78 @@ window.addEventListener('load', () => {
     });
 
 
+    selector2.addEventListener('change', function () {
+        baseAlfabeto2 = parseInt(document.querySelector("#selectorTexto2").value);
+    });
+
+    function seleccionarAlfabeto2() {
+        switch (baseAlfabeto2) {
+            case 32:
+                return alfabeto32;
+            case 64:
+                return alfabeto64;
+            case 128:
+                return alfabeto128;
+            case 256:
+                return alfabeto256;
+            default:
+                return alfabeto64;
+        };
+    };
+
+
+    function decodificacion( baseAlfabeto2, binarioEntrada ) {
+
+        console.log("Lo que entra en decodificación ", baseAlfabeto2, binarioEntrada);    
+        let longitudBinAlfabeto = (baseAlfabeto2 - 1).toString(2).length;
+        if (binarioEntrada.length == 0) {
+            throw "Debe ingresar una cadena binaria de entrada";
+        };
+        if (binarioEntrada.length % longitudBinAlfabeto != 0) {
+            let relleno = longitudBinAlfabeto - (binarioEntrada.length % longitudBinAlfabeto);
+            for (let i = 0; i < relleno; i++) {
+                binarioEntrada = binarioEntrada + "0";
+            };
+            //throw "Cadena binaria incompleta";
+        };
+        let cadenaAuxiliar = "";
+        let agrupacionCodigos = [];
+        for (let i = 0; i < binarioEntrada.length; i++) {
+            if (binarioEntrada[i] != "1" && binarioEntrada[i] != "0") {
+                throw "Debe ingresar una cadena binaria de entrada";
+            };
+            cadenaAuxiliar = cadenaAuxiliar + binarioEntrada[i];
+            if (cadenaAuxiliar.length == longitudBinAlfabeto) {
+                agrupacionCodigos.push(parseInt(cadenaAuxiliar, 2));
+                cadenaAuxiliar = "";
+            };
+        };
+        let alfabetoElegido = seleccionarAlfabeto2();
+        let palabraDecodificada = [];
+        for (let i = 0; i < agrupacionCodigos.length; i++) {
+            for (let caracter of alfabetoElegido) {
+                if (parseInt(alfabetoElegido.indexOf(caracter)) == agrupacionCodigos[i]) {
+                    palabraDecodificada.push(caracter);
+                };
+            };
+        };
+        return palabraDecodificada;
+    };
+
+
+    btnReCalcula.addEventListener('click', function () {
+        let binarioEntrada = document.querySelector("#listabin").value;
+        try {
+            let palabraDecodificada = decodificacion( baseAlfabeto2, binarioEntrada );
+            resultadoLista.innerHTML = "";
+            resultadoLista.innerHTML += "Esta es su decodificacion en <strong>base " + baseAlfabeto + "</strong>: " + palabraDecodificada.join('');
+            outputPalabra.value = palabraDecodificada.join('')
+        } catch (error) {
+            alert("Hubo un inconveniente: " + error);
+            resultado.innerHTML = "";
+            console.log("Error: ", error);
+        };
+    });
 
      
     
