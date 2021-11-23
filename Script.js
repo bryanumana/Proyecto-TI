@@ -176,6 +176,7 @@ window.addEventListener('load', () => {
             listaSimbolos = listaSimbolos2.concat();
             listaSimbolos2 = [];
         };
+
         try {
             let { listaPalabras} = codificacion(listaSimbolos);
             resultadoLista.innerHTML = "";
@@ -195,6 +196,7 @@ window.addEventListener('load', () => {
             console.log("Error: ", error);
         };
     });
+
     btnReCalcula.addEventListener('click', function () {
         let binarioEntrada = document.querySelector("#listabin").value;
         try {
