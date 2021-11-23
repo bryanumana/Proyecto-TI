@@ -1,0 +1,125 @@
+body {
+    font: 90% Helvetica;
+}
+
+h1{
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+p,
+#mostron {
+
+    padding: 16px 32px;
+    font-size: 16px;
+    font: Helvetica;
+    margin: 8px 0;
+    text-align: left;
+    color: #333;
+}
+
+.textoCodEnc{
+    border: 1px solid silver;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    background:  rgba(208, 209, 211, 0.20);
+}
+
+.container-stl{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+select {
+    display: block;
+    width: 30%;
+    padding: 11px 10px;
+    font-size: 16px;
+    margin: 8px auto;
+    border: 1px solid silver;
+    border-radius: 1px;
+    text-align: left;
+    color: #333;
+    background: #fff;
+    border: 2px solid #DCDAD9
+}
+
+input, textarea {
+    width: 75%;
+    display: flex;
+    padding: 11px 32px;
+    font-size: 16px;
+    margin: 8px auto;
+    border-radius: 1px;
+    text-align: left;
+    color: #333;
+    background: #fff;
+    border: 2px solid #DCDAD9
+}
+
+textarea{
+    margin: 40px auto;
+    height: 120px;
+}
+
+#orden {
+    margin-left: 40px;
+    width: 20%;
+}
+
+button {
+    display: block;
+    background-color: #102248;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    font-size: 16px;
+    min-width: 21%;
+    text-decoration: none;
+    margin: 4px auto 20px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: #333;
+}
+
+#chiquis {
+    font-size: 5px !important;
+}
+
+.container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+}
+
+.container img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card {
+    border: 1px solid #333;
+    height: 30rem;
+    width: 20rem;
+    position: relative;
+}
+
+.card-footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 9px;
+    background: #dfe6e9;
+}
+
+.card-footer input {
+    text-align: center;
+}
