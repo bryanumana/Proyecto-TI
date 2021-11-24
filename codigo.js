@@ -55,7 +55,6 @@ const alfabeto256 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
 
 var baseAlfabeto = 32;
 var baseAlfabeto2 = 32;
-let baseIMG = 64;
 var resultadoLista = [];
 let listaSimbolos2 = [];
 let decodeIMG;
@@ -110,7 +109,7 @@ const encode = ( palabraEntrada ) => {
         listaSimbolos2 = [];
     };
     try {
-        let  { listaPalabras } = codificacion(listaSimbolos);
+        let  { listaPalabras } = codificacion64(listaSimbolos);
         console.log(listaPalabras);
         let cadenaBin = listaPalabras.map(palabra => palabra.binario).toString().split(',').join('')
         console.log("Codificado", cadenaBin);
@@ -126,8 +125,8 @@ const encode = ( palabraEntrada ) => {
 const decode = (cadenaBin) => {
     // DECODIFICACIÓN
     try {
-        console.log('Datos enviados a decodificación:', baseIMG, cadenaBin);
-        let palabraDecodificada = decodificacion( baseIMG, cadenaBin );
+        console.log('Datos enviados a decodificación:', baseAlfabeto2, cadenaBin);
+        let palabraDecodificada = decodificacion( baseAlfabeto2, cadenaBin );
         console.log('palabra decodificada', palabraDecodificada);
         return palabraDecodificada;
     } catch (error) {
@@ -195,6 +194,42 @@ const codificacion = (listaSimbolos) => {
         let encontrado = false;
         
         let alfabetoElegido = seleccionarAlfabeto();
+        for (let i = 0; i < alfabetoElegido.length; i++) {
+            encontrado = String(simbolo) == String(alfabetoElegido[i]);
+            if (encontrado) {
+                objSimbolo.valor = i;
+                objSimbolo["binario"] = i.toString(2);
+                if (objSimbolo["binario"].length < longitudBinAlfabeto) {
+                    let longitudBin = objSimbolo["binario"].length;
+                    for (let j = 0; j < longitudBinAlfabeto - longitudBin; j++) {
+                        objSimbolo["binario"] = "0" + objSimbolo["binario"];
+                    };
+                };
+                break;
+            };
+        };
+        if (!encontrado) { throw "Uno de los caracteres ingresados no esta dentro del alfabeto del sistema"; };
+        listaPalabras.push(objSimbolo);
+    };
+    return { listaPalabras };
+};
+
+const codificacion64 = (listaSimbolos) => {
+    let listaPalabras = [];
+
+    if (listaSimbolos.length == 0) {
+        throw "Debe ingresar al menos un caracter";
+    };
+    let longitudBinAlfabeto = (64 - 1).toString(2).length;
+    for (let simbolo of listaSimbolos) {
+        let objSimbolo = {
+            "valor": 0,
+            "simbolo": simbolo,    
+        };
+
+        let encontrado = false;
+        
+        let alfabetoElegido = alfabeto64;
         for (let i = 0; i < alfabetoElegido.length; i++) {
             encontrado = String(simbolo) == String(alfabetoElegido[i]);
             if (encontrado) {
