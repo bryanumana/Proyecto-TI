@@ -146,7 +146,7 @@ window.addEventListener('load', () => {
     var resultadoLista = document.querySelector("#mostron");
     var inputPalabra = document.querySelector("#listap");
     let listaSimbolos2 = [];
-    let imgEnconde = metodo_Img();
+    metodo_Img();
 
 
     btnImagen.addEventListener('click', () =>{

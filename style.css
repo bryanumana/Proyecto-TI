@@ -83,7 +83,7 @@ textarea {
 
 #listabin{
     height: 100px;
-    background-color: #dfe6e9
+    background-color: #ebe8e6
     ;
 }
 
@@ -145,7 +145,7 @@ button:hover {
 
 .card {
     border: 1px solid #333;
-    height: 30rem;
+    height: 25rem;
     width: 20rem;
     position: relative;
 }
@@ -162,4 +162,16 @@ button:hover {
 
 .card-footer input {
     text-align: center;
+}
+
+.medio {
+    margin-top: 150px;
+    text-align: center;
+}
+
+#selectorTexto3{
+    width: 100%;
+}
+#txtArea{
+    height: 100px;
 }
