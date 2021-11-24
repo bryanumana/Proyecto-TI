@@ -11,48 +11,45 @@
 
 <body>
     <H1> Proyecto Codificación/Decodificación </H1>
-    <div class="container-stl">
+    
         <div class="textoCodEnc">
-            <p id="p1">
-                <select id="selectorTexto1">
-                    <option value="32">Base 32</option>
-                    <option value="64">Base 64</option>
-                    <option value="128">Base 128</option>
-                    <option value="256">Base 256</option>
-                </select>
-            </p>
-            <p id="p2">
-                <select id="selectorTexto2">
-                    <option value="32">Base 32</option>
-                    <option value="64">Base 64</option>
-                    <option value="128">Base 128</option>
-                    <option value="256">Base 256</option>
-                </select>
-            </p>
-      
-            <p>
-                Ingrese el texto a decodificar
-            </p>
-            <textarea type="text" id="listap" value=""></textarea>
-            <button id="hazlo">Codificar</button>
+            <div class="bloque">
+                <div class="Cod">  
+                    <select id="selectorTexto1">
+                        <option value="32">Base 32</option>
+                        <option value="64">Base 64</option>
+                        <option value="128">Base 128</option>
+                        <option value="256">Base 256</option>
+                    </select>
+                
+                    <p>Ingrese el texto a decodificar:</p>
 
-            <p>
-                Su cadena decodificada es:
-            </p>
-            <textarea type="text-" id="txtDecodificado" value=""></textarea>
+                    <textarea type="text" id="listap" value=""></textarea>
+
+                    <button id="hazlo">Codificar</button>
+                </div>
+
+                <div class="Enc">
+                    <select id="selectorTexto2">
+                        <option value="32">Base 32</option>
+                        <option value="64">Base 64</option>
+                        <option value="128">Base 128</option>
+                        <option value="256">Base 256</option>
+                    </select>
+
+                    <p>Su cadena decodificada es:</p> 
+
+                    <textarea type="text-" id="txtDecodificado" value=""></textarea>
             
-            <button id="hazlo2">Decodificar</button>
+                    <button id="hazlo2">Decodificar</button>
+                </div>
 
             <textarea type="text-" id="listabin" value=""></textarea>
+            </div>
         </div>
 
-        <div class="titles-stl">
-            <p><span class="icon-list-numbered"></span> Ingrese la cadena a decodificar (Solo Bits)</p>
-            <textarea type="text-" id="listabin" value=""></textarea>
-            <button id="hazlo2">Decodificar</button>
-           
-        </div>
-        <div class="titles-stl">
+        
+        <div class="imgCodEnc">
             <label id="respuesta"></label>
             <input id="file" type="file" />
             <div class="container">
@@ -69,8 +66,5 @@
             <textarea type="text-" id="txtArea" value=""></textarea>
             <button id="hazlo3">Decodificar imagen</button>
         </div>
-    </div>
-
 </body>
-
 </html>
