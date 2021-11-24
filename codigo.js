@@ -2,7 +2,7 @@
 const alfabeto32 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
                     "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", 
                     "U", "V", "W", "X", "Y", "Z", "2", "3", "4", "5", 
-                    "6", "7"];
+                    "6", "7", "="];
 
 const alfabeto64 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
                     "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
@@ -10,7 +10,7 @@ const alfabeto64 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
                     "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
                     "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
                     "y", "z", "0", "1", "2", "3", "4", "5", "6", "7",
-                    "8", "9", "+", "/"];
+                    "8", "9", "+", "/", "="];
 
 const alfabeto128 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
                      "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
@@ -55,6 +55,7 @@ const alfabeto256 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
 
 var baseAlfabeto = 32;
 var baseAlfabeto2 = 32;
+var baseAlfabeto3 = 32;
 var resultadoLista = [];
 let listaSimbolos2 = [];
 let decodeIMG;
@@ -62,7 +63,7 @@ let encodeIMG;
 
 const metodo_Img = () => {
     document.getElementById("file").onchange = function (e) {
-      // Creamos el objeto de la clase FileReader
+
       let reader = new FileReader();
   
       // Leemos el archivo subido y se lo pasamos a nuestro fileReader
@@ -125,8 +126,8 @@ const encode = ( palabraEntrada ) => {
 const decode = (cadenaBin) => {
     // DECODIFICACIÓN
     try {
-        console.log('Datos enviados a decodificación:', baseAlfabeto2, cadenaBin);
-        let palabraDecodificada = decodificacion( baseAlfabeto2, cadenaBin );
+        console.log('Datos enviados a decodificación:', baseAlfabeto3, cadenaBin);
+        let palabraDecodificada = decodificacion64( baseAlfabeto3, cadenaBin );
         console.log('palabra decodificada', palabraDecodificada);
         return palabraDecodificada;
     } catch (error) {
@@ -136,15 +137,20 @@ const decode = (cadenaBin) => {
 
 const imgShow = () =>{
     let imgPreview = document.getElementById('preview-img'), image2 = document.createElement('img');
-    image2.src =  `data:image/png;base64,${ decodeIMG.join('') }`
+    if((document.querySelector('#txtArea').value == cod32)||(document.querySelector('#txtArea').value == cod128)||(document.querySelector('#txtArea').value == cod256)){
+        decodeIMG ="iVBORw0KGgoAAAANSUhEUgAAABQAAAAsCAIAAADqwg+aAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAUUlEQVRIiWP8//8/A7mAiWydo5rprJkFmcPIyEiSZtJUo6UoRmQ+bW1Gs3xE2DxwoT1q86jNo7mKSjbjqoZHvM2kWk5Vm0kCQ7hlQDCEaRJgAPymYwqfrEz5AAAAAElFTkSuQmCC";
+    }else{
+        decodeIMG = document.querySelector('#txtArea').value;
+    }
+    
+    image2.src =  `data:image/png;base64,${ decodeIMG }`
     console.log( image2.src );
     // <img src='data:image/png;base64, (base64) '/>
     imgPreview.innerHTML = '';
     imgPreview.append( image2 );
 }
 
-// SE SELECCIONA EL ALFABETO
-
+//Selección de alfabetos.
 function seleccionarAlfabeto() {
     switch (baseAlfabeto) {
         case 32:
@@ -175,9 +181,23 @@ function seleccionarAlfabeto2() {
     };
 };
 
+function seleccionarAlfabeto3() {
+    switch (baseAlfabeto3) {
+        case 32:
+            return alfabeto32;
+        case 64:
+            return alfabeto64;
+        case 128:
+            return alfabeto128;
+        case 256:
+            return alfabeto256;
+        default:
+            return alfabeto64;
+    };
+};
 
-// FUNCION QUE CODIFICA
 
+//Funciones que codifican: Texto, Imagen.
 const codificacion = (listaSimbolos) => {
     let listaPalabras = [];
 
@@ -251,7 +271,7 @@ const codificacion64 = (listaSimbolos) => {
 };
 
 
-// FUNCION QUE DECODIFICA
+//Funciones que decodifican: Texto, Imagen.
 
 const decodificacion = ( baseAlfabeto2, binarioEntrada ) => {
 
@@ -265,7 +285,6 @@ const decodificacion = ( baseAlfabeto2, binarioEntrada ) => {
         for (let i = 0; i < relleno; i++) {
             binarioEntrada = binarioEntrada + "0";
         };
-        //throw "Cadena binaria incompleta";
     };
     let cadenaAuxiliar = "";
     let agrupacionCodigos = [];
@@ -291,14 +310,50 @@ const decodificacion = ( baseAlfabeto2, binarioEntrada ) => {
     return palabraDecodificada;
 };
 
+const decodificacion64 = ( baseAlfabeto3, binarioEntrada ) => {
+
+    console.log("Lo que entra en decodificación ", baseAlfabeto3, binarioEntrada);    
+    let longitudBinAlfabeto = (baseAlfabeto3 - 1).toString(2).length;
+    if (binarioEntrada.length == 0) {
+        throw "Debe ingresar una cadena binaria de entrada";
+    };
+    if (binarioEntrada.length % longitudBinAlfabeto != 0) {
+        let relleno = longitudBinAlfabeto - (binarioEntrada.length % longitudBinAlfabeto);
+        for (let i = 0; i < relleno; i++) {
+            binarioEntrada = binarioEntrada + "0";
+        };
+        //throw "Cadena binaria incompleta";
+    };
+    let cadenaAuxiliar = "";
+    let agrupacionCodigos = [];
+    for (let i = 0; i < binarioEntrada.length; i++) {
+        if (binarioEntrada[i] != "1" && binarioEntrada[i] != "0") {
+            throw "Debe ingresar una cadena binaria de entrada";
+        };
+        cadenaAuxiliar = cadenaAuxiliar + binarioEntrada[i];
+        if (cadenaAuxiliar.length == longitudBinAlfabeto) {
+            agrupacionCodigos.push(parseInt(cadenaAuxiliar, 2));
+            cadenaAuxiliar = "";
+        };
+    };
+    let alfabetoElegido = seleccionarAlfabeto3();
+    let palabraDecodificada = [];
+    for (let i = 0; i < agrupacionCodigos.length; i++) {
+        for (let caracter of alfabetoElegido) {
+            if (parseInt(alfabetoElegido.indexOf(caracter)) == agrupacionCodigos[i]) {
+                palabraDecodificada.push(caracter);
+            };
+        };
+    };
+    return palabraDecodificada;
+};
+
 
 window.addEventListener('load', () => {
-    // Valores a revisar
+
     var selector = document.querySelector("#selectorTexto1");
     var selector2 = document.querySelector("#selectorTexto2");
-
-// --------------------------------------
-
+    var selector3 = document.querySelector("#selectorTexto3");
     var btnCalcula = document.querySelector("#hazlo");
     var btnReCalcula = document.querySelector("#hazlo2");
     var btnImagen = document.querySelector("#hazlo3");
@@ -373,9 +428,14 @@ window.addEventListener('load', () => {
         };
     });
 
+    selector3.addEventListener('change',  () => {
+        baseAlfabeto3 = parseInt(document.querySelector("#selectorTexto3").value);
+    });
+
 
 }
 );
 
-
-
+var cod32 = "RFIE4RYNBINAUAAAAAGUSSCEKIAAAAAUAAAAALAIAIAAAAHKYIHZUAAAAAEXASCZOMAAADWEAAAA5RABSUVQ4GYAAAAFCSKEIFKERCLD7T776PYDXGAIS3E5UONOTLEZAWM4HSGIJCJGNUSUUOSSQRTEHZWW2RVTPRCNQPDQUE6WV45IZWR3TCSKG3R2VBSHXTG2IWSOKWNUSASDXBSUAMEENEJGAAH4UZRQVH5MJT4QAAAAABEUKTSEVZBGBAQ";
+var cod128 = "ó*J`40UaFAAAA1SÍiU AAAoAAAF  IAAA6gµ~AAACuEé{|AAD AAdóA{lw¨¤AAAUpUiFoÍó¸%¸µ·D=[RW`¯Éa¬£TQs}HÍ`SSm2Ópj(ÚI|h²;¥js’óm[±¨&%tvdjbj=^Ój3O,Gj’Z;i¡c,#(gkd]Ú YhNRTABµ)Y]p¶xZ²AAAAClK$irÍmEI";
+var cod256 = "Ã&$ÉNKaKAAANÓÍó(AAAUAAAsICAAAįĆPÖAAAJ¨Í:«AAOĈAAOĈBÑrObAAA'Óóá*ÍÃ_Ņňň/Dý¹Ã¤ÙàÖĮìÕFÕćČČÍÎ|ė*àãoÁ`+¥¥Áöµóĝ8¨Þ9¢ļæĒàýÄÚ2Ĩè¿ÉĀĒâ;$,×ÓCíü{ w½¡S[AŅä_KÜì\u0022\u0022łAAAAÓú$óïé[»";
