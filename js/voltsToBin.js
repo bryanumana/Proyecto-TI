@@ -58,10 +58,12 @@ const validateString = (array) => {
         // Busqueda de segmento
         // Hacer un arbol o un hash para renderizar la busqueda en el dict
         flag = iterArrays(arraySegmentos, decimal)
+        console.log("decimal -> " + decimal)
+        console.log(flag)
         binary += putZerosBefore(bitsSegmento, flag.toString(2))
 
         decimal -= arraySegmentos[flag]
-        console.log(decimal)
+        console.log("Intervalo -> " + decimal)
 
         // Busqueda de intervalo
         // Hacer un arbol o un hash para renderizar la busqueda en el dict
