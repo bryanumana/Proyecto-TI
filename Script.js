@@ -60,12 +60,18 @@ const alfabeto256 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
 var baseAlfabeto = 32;
 var baseAlfabeto2 = 32;
 var baseAlfabeto3 = 32;
+// Seria bueno tener una funcion que dinamice esta parte (cambiar maxima excursion en tiempo real)
 var baseCodificacion = 8;
 var bitsSegmento = 4;
 var bitsIntervalo = 3;
 var maximaExcursion = 1;
-var arraySegmentos = []
-var arrayIntervalos = []
+let tamSegmento = 2 ** bitsSegmento
+let excursionSegmentos = maximaExcursion / tamSegmento
+let tamIntervalo = 2 ** bitsIntervalo
+let excursionIntervalos = excursionSegmentos / tamIntervalo
+let arraySegmentos = calculoSegmentosEIntervalos(tamSegmento, excursionSegmentos)
+let arrayIntervalos = calculoSegmentosEIntervalos(tamIntervalo, excursionIntervalos)
+
 var resultadoLista = [];
 let listaSimbolos2 = [];
 let decodeIMG;
@@ -390,75 +396,6 @@ const response = (inputPalabra) => {
     return cadenaBin;
 }
 
-// Funcion que llena ceros
-var putZeros = (chain) => {
-    let howManyZeros = 8 - chain.length;
-    let zeros = "";
-    for (var i = 0; i < howManyZeros; i++) {
-        zeros += "0";
-    }
-    chain += zeros;
-    return chain;
-}
-
-// Funcion que convierte el binario a cadena de binarios
-const createBinaryArray = (cadenaBinaria) => {
-    console.log(cadenaBinaria)
-    console.log(cadenaBinaria.length)
-    let arrayBinarios = []
-    let flag = 0;
-    while (flag < cadenaBinaria.length) {
-        let chain = ""
-        for (var i = 0; i < baseCodificacion; i++) {
-            if (flag >= cadenaBinaria.length) {
-                chain = putZeros(chain);
-                break;
-            }
-            chain += cadenaBinaria[flag];
-            flag++;
-        }
-        arrayBinarios.push(chain)
-    }
-    console.log(arrayBinarios)
-    return arrayBinarios;
-}
-
-// Funcion que calcula el segmento
-const loQueSeaFunc = (arregloBinarios) => {
-    let arrayResponses = []
-    for (var i = 0; i < arregloBinarios.length; i++) {
-        let chain = arregloBinarios[i]
-        let bitDeSigno = chain[0]
-        let bitsDeSegmento = chain.substring(1, bitsSegmento + 1)
-        let bitsDeIntervalo = chain.substring(bitsSegmento + 1, chain.length + 1)
-
-        posSegmento = parseInt(bitsDeSegmento, 2)
-        posIntervalo = parseInt(bitsDeIntervalo, 2)
-
-        result = arraySegmentos[posSegmento] + (arrayIntervalos[posIntervalo] / 2)
-
-        if (bitDeSigno === "0")
-            result = -result
-
-        arrayResponses.push(result)
-    }
-
-    return arrayResponses
-}
-
-// Funcion que calcula los segmentos e intervalos
-const calculoSegmentosEIntervalos = (tam, tempExcursion) => {
-    let arrayTamanios = []
-    let actualExcursion = 0
-    console.log(tam)
-    for (var i = 0; i < tam; i++) {
-        actualExcursion += tempExcursion
-        arrayTamanios.push(actualExcursion)
-    }
-    console.log(arrayTamanios)
-    return arrayTamanios
-}
-
 
 window.addEventListener('load', () => {
 
@@ -469,7 +406,9 @@ window.addEventListener('load', () => {
     var btnCalcula = document.querySelector("#btnCodificarTexto");
     var inputPalabra = document.querySelector("#txtCodificarTexto");
     var btnCalculaVoltajes = document.querySelector("#btnCodificarTextoVoltajes");
+    var btnCalculaBinario = document.querySelector("#btnDecodificarTextoVoltajes");
     var inputPalabraVoltajes = document.querySelector("#txtCodificarTextoVoltajes");
+    var inputVoltajes = document.querySelector("#txtDecodificarTextoVoltajes");
     var outputPalabra = document.querySelector("#txtDecodificarTexto");
     var btnReCalcula = document.querySelector("#btnDecodificarTexto");
 
@@ -505,20 +444,21 @@ window.addEventListener('load', () => {
         // Codificador uniforme
         // El codificador no uniforme no debe presentar mayor problema, solo se debe varias veces la funcion
         // de crear los arreglos de los segmentos e intervalos y cambiar sus parametros
-        let tamSegmento = 2 ** bitsSegmento
-        let excursionSegmentos = maximaExcursion / tamSegmento
-
-        let tamIntervalo = 2 ** bitsIntervalo
-        let excursionIntervalos = excursionSegmentos / tamIntervalo
-
         let cadenaBinaria = response(inputPalabraVoltajes)
         let arrayBinario = createBinaryArray(cadenaBinaria)
 
-        arraySegmentos = calculoSegmentosEIntervalos(tamSegmento, excursionSegmentos)
-        arrayIntervalos = calculoSegmentosEIntervalos(tamIntervalo, excursionIntervalos)
-
         document.querySelector('#listaVoltajes').value = "[" +
             loQueSeaFunc(arrayBinario).join(", ") + "]"
+    });
+
+    btnCalculaBinario.addEventListener('click', () => {
+        // Codificador uniforme
+        // El codificador no uniforme no debe presentar mayor problema, solo se debe varias veces la funcion
+        // de crear los arreglos de los segmentos e intervalos y cambiar sus parametros
+        const arrayBinaries = createArrayFromString(inputVoltajes.value)
+        const arrayResponse = validateString(arrayBinaries).join("")
+        document.querySelector('#listaVoltajes').value = arrayResponse
+        console.log(decodificacion64(64, arrayResponse))
     });
 
     selector2.addEventListener('change', function() {
