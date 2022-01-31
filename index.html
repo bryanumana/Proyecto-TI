@@ -1,84 +1,124 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto Codificación/Decodificación</title>
     <script type="text/javascript" src="script.js"></script>
-    <link href="style.css" rel= "stylesheet"/>
+    <link href="style.css" rel="stylesheet" />
 </head>
 
 <body>
     <H1> Proyecto Codificación/Decodificación </H1>
-    
-        <div class="textoCodEnc">
-            <div class="bloque">
-                <div class="Cod">  
 
-                    <p>Ingrese el texto a codificar:</p>
+    <div class="textoCodEnc">
+        <div class="bloque">
+            <div class="Cod">
 
-                    <textarea type="text" id="txtCodificarTexto" value=""></textarea>
+                <p>Ingrese el texto a codificar:</p>
 
-                    <select id="cmbSeleccion1">
+                <textarea type="text" id="txtCodificarTexto" value=""></textarea>
+
+                <select id="cmbSeleccion1">
                         <option value="32">Base 32</option>
                         <option value="64">Base 64</option>
                         <option value="128">Base 128</option>
                         <option value="256">Base 256</option>
                     </select>
 
-                    <button id="btnCodificarTexto">Codificar</button>
-                </div>
+                <button id="btnCodificarTexto">Codificar</button>
+            </div>
 
-                <div class="Enc">
-                    
-                    <p>Su cadena decodificada es:</p> 
+            <div class="Enc">
 
-                    <textarea type="text-" id="txtDecodificarTexto" value=""></textarea>
+                <p>Su cadena decodificada es:</p>
 
-                    <select id="cmbSeleccion2">
+                <textarea type="text-" id="txtDecodificarTexto" value=""></textarea>
+
+                <select id="cmbSeleccion2">
                         <option value="32">Base 32</option>
                         <option value="64">Base 64</option>
                         <option value="128">Base 128</option>
                         <option value="256">Base 256</option>
                     </select>
 
-                    <button id="btnDecodificarTexto">Decodificar</button>
-                </div>
+                <button id="btnDecodificarTexto">Decodificar</button>
+            </div>
 
             <textarea type="text-" id="listabin" value=""></textarea>
-            </div>
         </div>
+    </div>
 
-        
-        <div class="imgCodEnc">
-            <label id="respuesta"></label>
-            <input id="file" type="file" />
-            <div class="container">
 
-                <div class="card">
-                    <div id="preview"></div>
-                </div>
+    <div class="imgCodEnc">
+        <label id="respuesta"></label>
+        <input id="file" type="file" />
+        <div class="container">
 
-                <div class="medio">
+            <div class="card">
+                <div id="preview"></div>
+            </div>
 
-                    <select id="cmbSeleccion3">
+            <div class="medio">
+
+                <select id="cmbSeleccion3">
                         <option value="32">Base 32</option>
                         <option value="64">Base 64</option>
                         <option value="128">Base 128</option>
                         <option value="256">Base 256</option>
                     </select>
-                    
-                    <button id="btnMostrarImagen">Mostrar imagen</button>
-                </div>
 
-                <div class="card">
-                    <div id="preview-img"></div>
-                </div>
-                
+                <button id="btnMostrarImagen">Mostrar imagen</button>
             </div>
-            <textarea type="text-" id="txtArea" value=""></textarea>
-            
+
+            <div class="card">
+                <div id="preview-img"></div>
+            </div>
+
         </div>
+        <textarea type="text-" id="txtArea" value=""></textarea>
+
+    </div>
+
+    <div class="textoCodEnc">
+        <div class="bloque">
+            <div class="Cod">
+
+                <p>Ingrese el texto a codificar:</p>
+
+                <textarea type="text" id="txtCodificarTextoVoltajes" value=""></textarea>
+
+                <select id="cmbSeleccion1Voltajes">
+                        <option value="32">Base 32</option>
+                        <option value="64">Base 64</option>
+                        <option value="128">Base 128</option>
+                        <option value="256">Base 256</option>
+                    </select>
+
+                <button id="btnCodificarTextoVoltajes">Codificar</button>
+            </div>
+
+            <div class="Enc">
+
+                <p>Su cadena decodificada es:</p>
+
+                <textarea type="text-" id="txtDecodificarTextoVoltajes" value=""></textarea>
+
+                <select id="cmbSeleccion2Voltajes">
+                        <option value="32">Base 32</option>
+                        <option value="64">Base 64</option>
+                        <option value="128">Base 128</option>
+                        <option value="256">Base 256</option>
+                    </select>
+
+                <button id="btnDecodificarTextoVoltajes">Decodificar</button>
+            </div>
+            <h1>Cadena de voltajes</h1>
+            <textarea type="text-" id="listaVoltajes" value=""></textarea>
+        </div>
+    </div>
 </body>
+
 </html>
