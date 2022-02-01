@@ -43,9 +43,11 @@ const loQueSeaFunc = (arregloBinarios) => {
         posSegmento = parseInt(bitsDeSegmento, 2)
         posIntervalo = parseInt(bitsDeIntervalo, 2)
 
+
         result = (arraySegmentos[posSegmento - 1] + (arrayIntervalos[posIntervalo - 1]) + 
                   arraySegmentos[posSegmento - 1] + (arrayIntervalos[posIntervalo    ]))/2
         
+
 
         if (bitDeSigno === "0")
             result = -result
@@ -61,7 +63,8 @@ const calculoSegmentosEIntervalos = (tam, tempExcursion) => {
     let arrayTamanios = []
     let actualExcursion = 0
     console.log(tam)
-    for (var i = 0; i < tam; i++) {
+    arrayTamanios.push(0)
+    for (var i = 1; i < tam; i++) {
         actualExcursion += tempExcursion
         arrayTamanios.push(actualExcursion)
     }
