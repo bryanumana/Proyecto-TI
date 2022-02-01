@@ -458,7 +458,7 @@ window.addEventListener('load', () => {
         const arrayBinaries = createArrayFromString(inputVoltajes.value)
         const arrayResponse = validateString(arrayBinaries).join("")
         document.querySelector('#listaVoltajes').value = arrayResponse
-        console.log(decodificacion(alfabeto64, arrayResponse))
+        console.log(decodificacion(64, arrayResponse))
     });
 
     selector2.addEventListener('change', function() {
