@@ -43,7 +43,9 @@ const loQueSeaFunc = (arregloBinarios) => {
         posSegmento = parseInt(bitsDeSegmento, 2)
         posIntervalo = parseInt(bitsDeIntervalo, 2)
 
-        result = arraySegmentos[posSegmento] + (arrayIntervalos[posIntervalo] / 2)
+        result = (arraySegmentos[posSegmento - 1] + (arrayIntervalos[posIntervalo - 1]) + 
+                  arraySegmentos[posSegmento - 1] + (arrayIntervalos[posIntervalo    ]))/2
+        
 
         if (bitDeSigno === "0")
             result = -result
