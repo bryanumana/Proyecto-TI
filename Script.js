@@ -1,39 +1,41 @@
 'use-strict'
 
-const alfabeto64 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
-                    "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-                    "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", 
-                    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
-                    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
-                    "y", "z", "0", "1", "2", "3", "4", "5", "6", "7",
-                    "8", "9", "+", "/", "="];
+const alfabeto64 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+    "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+    "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d",
+    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+    "y", "z", "0", "1", "2", "3", "4", "5", "6", "7",
+    "8", "9", "+", "/", "="
+];
 
-const alfabeto256 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
-                     "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-                     "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", 
-                     "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
-                     "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
-                     "y", "z", "0", "1", "2", "3", "4", "5", "6", "7",
-                     "8", "9", "+", "/", " ", "á", "é", "í", "ó", "ú", 
-                     "Á", "É", "Í", "Ó", "Ú", "!", "\u0022", "#", "$", "%", 
-                     "&", "'", "(", ")", "*", ",", "-", ".", "\"",":", 
-                     ";", "<", "=", ">", "?", "@", "[", "]", "^", "_", 
-                     "`", "{", "|", "}", "~", "¡", "¢", "£", "¤", "¥",
-                     "¦", "’", "¨", "©", "ª", "«", "¬", "®", "¯", "°",
-                     "±", "²", "³", "´", "µ", "¶", "·", "¸", "¹", "º", 
-                     "»", "¼", "½", "¾", "¿", "À", "Â", "Ã", "Ä", "Å", 
-                     "Æ", "Ç", "È", "Ê", "Ë", "Ì", "Î", "Ï", "Ð", "Ñ",
-                     "ñ", "Ò", "Ô", "Õ", "Ö", "×", "Ø", "Ù", "Û", "Ü", 
-                     "Ý", "Þ", "ß", "à", "â", "ã", "ä", "å", "æ", "ç",
-                     "è", "ê", "ì", "î", "ï", "ð", "ò", "ô", "õ", "ö",
-                     "÷", "ø", "ù", "û", "ü", "ý", "þ", "ÿ", "Ā", "ā",
-                     "Ă", "ă", "Ą", "ą", "Ć", "ć", "Ĉ", "ĉ", "Ċ", "ċ", 
-                     "Č", "č", "Ď", "Đ", "đ", "Ē", "ē", "Ĕ", "ĕ", "Ė", 
-                     "ė", "Ę", "ę", "Ě", "ě", "Ĝ", "ĝ", "Ğ", "ğ", "Ġ", 
-                     "ġ", "Ģ", "ģ", "Ĥ", "ĥ", "Ħ", "ħ", "Ĩ", "ĩ", "Ī", 
-                     "ī", "Ĭ", "ĭ", "Į", "į", "İ", "ı", "Ĵ", "ĵ", "Ķ",
-                     "ķ", "Ĺ", "Ļ", "ļ", "Ľ", "ľ", "Ŀ", "ŀ", "Ł", "ł",
-                     "Ń", "ń", "Ņ", "ņ", "Ň", "ň"];
+const alfabeto256 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+    "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+    "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d",
+    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+    "y", "z", "0", "1", "2", "3", "4", "5", "6", "7",
+    "8", "9", "+", "/", " ", "á", "é", "í", "ó", "ú",
+    "Á", "É", "Í", "Ó", "Ú", "!", "\u0022", "#", "$", "%",
+    "&", "'", "(", ")", "*", ",", "-", ".", "\"", ":",
+    ";", "<", "=", ">", "?", "@", "[", "]", "^", "_",
+    "`", "{", "|", "}", "~", "¡", "¢", "£", "¤", "¥",
+    "¦", "’", "¨", "©", "ª", "«", "¬", "®", "¯", "°",
+    "±", "²", "³", "´", "µ", "¶", "·", "¸", "¹", "º",
+    "»", "¼", "½", "¾", "¿", "À", "Â", "Ã", "Ä", "Å",
+    "Æ", "Ç", "È", "Ê", "Ë", "Ì", "Î", "Ï", "Ð", "Ñ",
+    "ñ", "Ò", "Ô", "Õ", "Ö", "×", "Ø", "Ù", "Û", "Ü",
+    "Ý", "Þ", "ß", "à", "â", "ã", "ä", "å", "æ", "ç",
+    "è", "ê", "ì", "î", "ï", "ð", "ò", "ô", "õ", "ö",
+    "÷", "ø", "ù", "û", "ü", "ý", "þ", "ÿ", "Ā", "ā",
+    "Ă", "ă", "Ą", "ą", "Ć", "ć", "Ĉ", "ĉ", "Ċ", "ċ",
+    "Č", "č", "Ď", "Đ", "đ", "Ē", "ē", "Ĕ", "ĕ", "Ė",
+    "ė", "Ę", "ę", "Ě", "ě", "Ĝ", "ĝ", "Ğ", "ğ", "Ġ",
+    "ġ", "Ģ", "ģ", "Ĥ", "ĥ", "Ħ", "ħ", "Ĩ", "ĩ", "Ī",
+    "ī", "Ĭ", "ĭ", "Į", "į", "İ", "ı", "Ĵ", "ĵ", "Ķ",
+    "ķ", "Ĺ", "Ļ", "ļ", "Ľ", "ľ", "Ŀ", "ŀ", "Ł", "ł",
+    "Ń", "ń", "Ņ", "ņ", "Ň", "ň", "\010"
+];
 
 var baseAlfabeto = 256;
 var baseAlfabeto2 = 256;
@@ -44,35 +46,36 @@ let decodeIMG;
 let encodeIMG;
 
 const metodo_Img = () => {
-    document.getElementById("file").onchange = function (e) {
+    document.getElementById("file").onchange = function(e) {
 
-      let reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload =  () => {
-        let preview = document.getElementById('preview'), image = document.createElement('img');
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+            let preview = document.getElementById('preview'),
+                image = document.createElement('img');
 
-        image.src = reader.result;  
-        cadena = reader.result;
-        const myArray = cadena.split("base64,");
+            image.src = reader.result;
+            cadena = reader.result;
+            const myArray = cadena.split("base64,");
 
-        // console.log(myArray[1]);  
-        preview.innerHTML = '';
-        preview.append(image);
-        encodeIMG = encode( myArray[1] )
-        decodeIMG = decode( encodeIMG );
+            // console.log(myArray[1]);  
+            preview.innerHTML = '';
+            preview.append(image);
+            encodeIMG = encode(myArray[1])
+            decodeIMG = decode(encodeIMG);
 
-        console.log( decodeIMG.join('') ); 
-        
-        document.querySelector('#txtArea').value = encodeIMG;
-    };
-    
-}
+            console.log(decodeIMG.join(''));
+
+            document.querySelector('#txtArea').value = encodeIMG;
+        };
+
+    }
 }
 
 
 // FUNCION QUE CODIFICA
 
-const encode = ( palabraEntrada ) => {
+const encode = (palabraEntrada) => {
     console.log(palabraEntrada);
     if (listaSimbolos2.length == 0) {
         listaSimbolos = palabraEntrada.match(/.{1}/g);
@@ -81,7 +84,7 @@ const encode = ( palabraEntrada ) => {
         listaSimbolos2 = [];
     };
     try {
-        let  { listaPalabras } = codificacion64(listaSimbolos);
+        let { listaPalabras } = codificacion64(listaSimbolos);
         console.log(listaPalabras);
         let cadenaBin = listaPalabras.map(palabra => palabra.binario).toString().split(',').join('')
         console.log("Codificado", cadenaBin);
@@ -98,7 +101,7 @@ const decode = (cadenaBin) => {
     // DECODIFICACIÓN
     try {
         console.log('Datos enviados a decodificación:', baseAlfabeto3, cadenaBin);
-        let palabraDecodificada = decodificacion64( baseAlfabeto3, cadenaBin );
+        let palabraDecodificada = decodificacion64(baseAlfabeto3, cadenaBin);
         console.log('palabra decodificada', palabraDecodificada);
         return palabraDecodificada;
     } catch (error) {
@@ -106,17 +109,18 @@ const decode = (cadenaBin) => {
     };
 }
 
-const imgShow = () =>{
-    let imgPreview = document.getElementById('preview-img'), image2 = document.createElement('img');
+const imgShow = () => {
+    let imgPreview = document.getElementById('preview-img'),
+        image2 = document.createElement('img');
 
-    
+
     decodeIMG = decode(document.querySelector('#txtArea').value).join('');
-    image2.src =  `data:image/png;base64,${ decodeIMG }`
-    console.log( image2.src );
+    image2.src = `data:image/png;base64,${ decodeIMG }`
+    console.log(image2.src);
     // <img src='data:image/png;base64, (base64) '/>
     imgPreview.innerHTML = '';
-    imgPreview.append( image2 );
-    console.log("U:"+ decodeIMG)
+    imgPreview.append(image2);
+    console.log("U:" + decodeIMG)
 }
 
 //Selección de alfabetos.
@@ -177,11 +181,11 @@ const codificacion = (listaSimbolos) => {
     for (let simbolo of listaSimbolos) {
         let objSimbolo = {
             "valor": 0,
-            "simbolo": simbolo,    
+            "simbolo": simbolo,
         };
 
         let encontrado = false;
-        
+
         let alfabetoElegido = seleccionarAlfabeto();
         for (let i = 0; i < alfabetoElegido.length; i++) {
             encontrado = String(simbolo) == String(alfabetoElegido[i]);
@@ -213,11 +217,11 @@ const codificacion64 = (listaSimbolos) => {
     for (let simbolo of listaSimbolos) {
         let objSimbolo = {
             "valor": 0,
-            "simbolo": simbolo,    
+            "simbolo": simbolo,
         };
 
         let encontrado = false;
-        
+
         let alfabetoElegido = alfabeto64;
         for (let i = 0; i < alfabetoElegido.length; i++) {
             encontrado = String(simbolo) == String(alfabetoElegido[i]);
@@ -242,9 +246,9 @@ const codificacion64 = (listaSimbolos) => {
 
 //Funciones que decodifican: Texto, Imagen.
 
-const decodificacion = ( baseAlfabeto2, binarioEntrada ) => {
+const decodificacion = (baseAlfabeto2, binarioEntrada) => {
 
-    console.log("Lo que entra en decodificación ", baseAlfabeto2, binarioEntrada);    
+    console.log("Lo que entra en decodificación ", baseAlfabeto2, binarioEntrada);
     let longitudBinAlfabeto = (baseAlfabeto2 - 1).toString(2).length;
     if (binarioEntrada.length == 0) {
         throw "Debe ingresar una cadena binaria de entrada";
@@ -279,9 +283,9 @@ const decodificacion = ( baseAlfabeto2, binarioEntrada ) => {
     return palabraDecodificada;
 };
 
-const decodificacion64 = ( baseAlfabeto3, binarioEntrada ) => {
+const decodificacion64 = (baseAlfabeto3, binarioEntrada) => {
 
-    console.log("Lo que entra en decodificación ", baseAlfabeto3, binarioEntrada);    
+    console.log("Lo que entra en decodificación ", baseAlfabeto3, binarioEntrada);
     let longitudBinAlfabeto = (baseAlfabeto3 - 1).toString(2).length;
     if (binarioEntrada.length == 0) {
         throw "Debe ingresar una cadena binaria de entrada";
@@ -320,35 +324,31 @@ const decodificacion64 = ( baseAlfabeto3, binarioEntrada ) => {
 
 window.addEventListener('load', () => {
 
-   
-    
-  
+
+
+
     var btnCalcula = document.querySelector("#btnCodificarTexto");
-    var btnReCalcula = document.querySelector("#btnDecodificarTexto");
+    var btnReCalcula = document.querySelector("#btnDecodificarVoltajes");
     var btnImagen = document.querySelector("#btnMostrarImagen");
     var inputPalabra = document.querySelector("#txtCodificarTexto");
     var outputPalabra = document.querySelector("#txtDecodificarTexto");
     metodo_Img();
 
-    btnImagen.addEventListener('click', () =>{
+    btnImagen.addEventListener('click', () => {
         try {
-            document.querySelector('#txtArea').value != ''
-            ? imgShow()
-            : alert('No se ha codificaco la imagen');
+            document.querySelector('#txtArea').value != '' ?
+                imgShow() :
+                alert('No se ha codificaco la imagen');
         } catch (error) {
             throw error;
         }
     })
 
-    
-    
+    btnCalcula.addEventListener('click', () => {
 
-
-    btnCalcula.addEventListener('click',  () => {
-        
         let palabraEntrada = inputPalabra.value;
         let listaSimbolos = [];
-      
+
         let resultado = [];
 
         if (listaSimbolos2.length == 0) {
@@ -359,13 +359,28 @@ window.addEventListener('load', () => {
         };
 
         try {
-            let { listaPalabras} = codificacion(listaSimbolos);
+            let { listaPalabras } = codificacion(listaSimbolos);
             for (let binario of listaPalabras) {
                 resultadoLista.innerHTML += "<li>" + binario.simbolo + " : " + binario.binario + " </li>";
             };
             resultado.innerHTML = "<br>";
             let cadenaBin = listaPalabras.map(palabra => palabra.binario).toString().split(',').join('')
-            document.querySelector("#listabin").value = cadenaBin
+            axios.post('http://127.0.0.1:5000/codificar', {
+                    binary_chain: cadenaBin
+                }, {
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then(function(response) {
+                    console.log(response.data);
+                    document.querySelector("#listabin").value = cadenaBin
+                    document.getElementById('txtDecodificarTexto').innerHTML = response.data["volts"]
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+
             resultado.innerHTML = "<br>";
         } catch (error) {
             alert("Hubo un inconveniente: " + error);
@@ -374,23 +389,32 @@ window.addEventListener('load', () => {
         };
     });
 
-
-   
-
-
-
-    btnReCalcula.addEventListener('click', function () {
-        let binarioEntrada = document.querySelector("#listabin").value;
+    btnReCalcula.addEventListener('click', function() {
+        let binarioEntrada = document.querySelector("#txtCodificarVoltajes").value;
         try {
-            let palabraDecodificada = decodificacion( baseAlfabeto2, binarioEntrada );
-            resultadoLista.innerHTML = "";
-            resultadoLista.innerHTML += "Esta es su decodificacion en <strong>base " + baseAlfabeto + "</strong>: " + palabraDecodificada.join('');
-            outputPalabra.value = palabraDecodificada.join('')
+            axios.post('http://127.0.0.1:5000/decodificar', {
+                    volts_chain: binarioEntrada
+                }, {
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then(function(response) {
+                    console.log(response.data);
+                    let palabraDecodificada = decodificacion(baseAlfabeto2, response.data['bin_chain']);
+                    resultadoLista.innerHTML = "";
+                    resultadoLista.innerHTML += "Esta es su decodificacion en <strong>base " + baseAlfabeto + "</strong>: " + palabraDecodificada.join('');
+                    document.querySelector("#listabinV").value = response.data['bin_chain']
+                    document.getElementById('txtDecodificarVoltajes').innerHTML = palabraDecodificada.join('')
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+
         } catch (error) {
             alert("Hubo un inconveniente: " + error);
             resultado.innerHTML = "";
             console.log("Error: ", error);
         };
     });
-}
-);
+});

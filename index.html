@@ -1,69 +1,82 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto Codificación/Decodificación</title>
-    <script type="text/javascript" src="script.js"></script>
-    <link href="style.css" rel= "stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="Script.js"></script>
+    <link href="style.css" rel="stylesheet" />
 </head>
 
 <body>
     <H1> Proyecto Codificación/Decodificación </H1>
-    
-        <div class="textoCodEnc">
-            <div class="bloque">
-                <div class="Cod">  
+    <p>Ingrese su formula:</p>
+    <input type="text" id="inputFormula" placeholder="5v=4(X/2)+4(X)+4(2X)+4(4X)" />
+    <br>
+    <br>
 
-                    <p>Ingrese el texto a decodificar:</p>
+    <div class="textoCodEnc">
+        <div class="bloque">
+            <div class="Cod">
+                <p>Ingrese el texto a decodificar:</p>
+                <textarea type="text" id="txtCodificarTexto" value=""></textarea>
+                <button id="btnCodificarTexto">Codificar</button>
+            </div>
 
-                    <textarea type="text" id="txtCodificarTexto" value=""></textarea>
-
-                 
-
-                    <button id="btnCodificarTexto">Codificar</button>
-                </div>
-
-                <div class="Enc">
-                    
-                    <p>Su cadena decodificada es:</p> 
-
-                    <textarea type="text-" id="txtDecodificarTexto" value=""></textarea>
-
-                   
-
-                    <button id="btnDecodificarTexto">Decodificar</button>
-                </div>
+            <div class="Enc">
+                <p>Su cadena de voltajes es:</p>
+                <textarea type="text-" id="txtDecodificarTexto" value=""></textarea>
+            </div>
 
             <textarea type="text-" id="listabin" value=""></textarea>
-            </div>
         </div>
+    </div>
 
-        
-        <div class="imgCodEnc">
-            <label id="respuesta"></label>
-            <input id="file" type="file" />
-            <div class="container">
-
-                <div class="card">
-                    <div id="preview"></div>
-                </div>
-
-                <div class="medio">
-
-                   
-                    
-                    <button id="btnMostrarImagen">Decodificar imagen</button>
-                </div>
-
-                <div class="card">
-                    <div id="preview-img"></div>
-                </div>
-                
+    <div class="textoCodEnc">
+        <div class="bloque">
+            <div class="Cod">
+                <p>Ingrese los voltajes a decodificar:</p>
+                <textarea type="text" id="txtCodificarVoltajes" value=""></textarea>
+                <button id="btnDecodificarVoltajes">Decodificar</button>
             </div>
-            <textarea type="text-" id="txtArea" value=""></textarea>
-            
+
+            <div class="Enc">
+                <p>Su cadena original es:</p>
+                <textarea type="text" id="txtDecodificarVoltajes" value=""></textarea>
+            </div>
+
+            <textarea type="text-" id="listabinV" value=""></textarea>
         </div>
+    </div>
+
+
+    <div class="imgCodEnc">
+        <label id="respuesta"></label>
+        <input id="file" type="file" />
+        <div class="container">
+
+            <div class="card">
+                <div id="preview"></div>
+            </div>
+
+            <div class="medio">
+
+
+
+                <button id="btnMostrarImagen">Decodificar imagen</button>
+            </div>
+
+            <div class="card">
+                <div id="preview-img"></div>
+            </div>
+
+        </div>
+        <textarea type="text-" id="txtArea" value=""></textarea>
+
+    </div>
 </body>
+
 </html>
