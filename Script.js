@@ -366,7 +366,8 @@ window.addEventListener('load', () => {
             resultado.innerHTML = "<br>";
             let cadenaBin = listaPalabras.map(palabra => palabra.binario).toString().split(',').join('')
             axios.post('http://127.0.0.1:5000/codificar', {
-                    binary_chain: cadenaBin
+                    binary_chain: cadenaBin,
+                    formula: document.querySelector("#inputFormula").value
                 }, {
                     headers: {
                         'content-type': 'application/x-www-form-urlencoded'
@@ -393,7 +394,8 @@ window.addEventListener('load', () => {
         let binarioEntrada = document.querySelector("#txtCodificarVoltajes").value;
         try {
             axios.post('http://127.0.0.1:5000/decodificar', {
-                    volts_chain: binarioEntrada
+                    volts_chain: binarioEntrada,
+                    formula: document.querySelector("#inputFormula").value
                 }, {
                     headers: {
                         'content-type': 'application/x-www-form-urlencoded'
