@@ -66,7 +66,22 @@ const metodo_Img = () => {
 
             console.log(decodeIMG.join(''));
 
-            document.querySelector('#txtArea').value = encodeIMG;
+            axios.post('http://127.0.0.1:5000/codificar', {
+                    binary_chain: encodeIMG,
+                    formula: document.querySelector("#inputFormula").value
+                }, {
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then(function(response) {
+                    console.log(response.data);
+                    document.querySelector('#txtArea').value = response.data["volts"];
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+
         };
 
     }
@@ -112,15 +127,36 @@ const decode = (cadenaBin) => {
 const imgShow = () => {
     let imgPreview = document.getElementById('preview-img'),
         image2 = document.createElement('img');
+    axios.post('http://127.0.0.1:5000/decodificar', {
+            volts_chain: document.querySelector('#txtArea').value,
+            formula: document.querySelector("#inputFormula").value
+        }, {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(function(response) {
+            console.log(response.data);
+            let palabraDecodificada = decodificacion(baseAlfabeto2, response.data['bin_chain']);
 
+            decodeIMG = decode(response.data['bin_chain']).join('');
 
-    decodeIMG = decode(document.querySelector('#txtArea').value).join('');
-    image2.src = `data:image/png;base64,${ decodeIMG }`
-    console.log(image2.src);
-    // <img src='data:image/png;base64, (base64) '/>
-    imgPreview.innerHTML = '';
-    imgPreview.append(image2);
-    console.log("U:" + decodeIMG)
+            const linkSource = `data:application/pdf;base64,${decodeIMG}`;
+            const downloadLink = document.createElement("a");
+            const fileName = "abc.pdf";
+            downloadLink.href = linkSource;
+            downloadLink.download = fileName;
+            downloadLink.click();
+
+            /*decodeIMG = decode(document.querySelector('#txtArea').value).join('');
+            image2.src = `data:image/png;base64,${ decodeIMG }`
+            console.log(image2.src);
+            // <img src='data:image/png;base64, (base64) '/>
+            imgPreview.innerHTML = '';
+            imgPreview.append(image2);
+            console.log("U:" + decodeIMG)*/
+
+        })
 }
 
 //Selección de alfabetos.
