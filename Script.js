@@ -127,6 +127,8 @@ const decode = (cadenaBin) => {
 const imgShow = () => {
     let imgPreview = document.getElementById('preview-img'),
         image2 = document.createElement('img');
+    let img = document.getElementById('preview').innerHTML
+
     axios.post('http://127.0.0.1:5000/decodificar', {
             volts_chain: document.querySelector('#txtArea').value,
             formula: document.querySelector("#inputFormula").value
@@ -141,21 +143,22 @@ const imgShow = () => {
 
             decodeIMG = decode(response.data['bin_chain']).join('');
 
-            const linkSource = `data:application/pdf;base64,${decodeIMG}`;
-            const downloadLink = document.createElement("a");
-            const fileName = "abc.pdf";
-            downloadLink.href = linkSource;
-            downloadLink.download = fileName;
-            downloadLink.click();
+            if (document.querySelector("#file").files[0].type.indexOf("pdf") != -1) {
+                const linkSource = `data:application/pdf;base64,${decodeIMG}`;
+                const downloadLink = document.createElement("a");
+                const fileName = "abc.pdf";
+                downloadLink.href = linkSource;
+                downloadLink.download = fileName;
+                downloadLink.click();
 
-            /*decodeIMG = decode(document.querySelector('#txtArea').value).join('');
-            image2.src = `data:image/png;base64,${ decodeIMG }`
-            console.log(image2.src);
-            // <img src='data:image/png;base64, (base64) '/>
-            imgPreview.innerHTML = '';
-            imgPreview.append(image2);
-            console.log("U:" + decodeIMG)*/
-
+            } else {
+                image2.src = `data:image/png;base64,${ decodeIMG }`
+                console.log(image2.src);
+                // <img src='data:image/png;base64, (base64) '/>
+                imgPreview.innerHTML = img;
+                imgPreview.append(image2);
+                console.log("U:" + decodeIMG)
+            }
         })
 }
 
@@ -443,7 +446,7 @@ window.addEventListener('load', () => {
                     resultadoLista.innerHTML = "";
                     resultadoLista.innerHTML += "Esta es su decodificacion en <strong>base " + baseAlfabeto + "</strong>: " + palabraDecodificada.join('');
                     document.querySelector("#listabinV").value = response.data['bin_chain']
-                    document.getElementById('txtDecodificarVoltajes').innerHTML = palabraDecodificada.join('')
+                    document.getElementById('txtDecodificarVoltajes').innerHTML = palabraDecodificada.join('').slice(0, -1)
                 })
                 .catch(function(error) {
                     console.log(error);
